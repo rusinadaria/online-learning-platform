@@ -1,21 +1,17 @@
 const {User} = require('../models/models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Token = require('../models/models');
+const {Token} = require('../models/models');
 const { response } = require('express');
-const userToken = require('../hz/userToken');
+const tokenService = require('../services/tokenService');
+const userService = require('../services/userService');
 
 class UserController {
     async registration(req, res) {
-        const {username, email, password} = req.body
-        const hashPassword = await bcrypt.hash(password, 3)
-        const user = await User.create({
-            username,
-            email,
-            password: hashPassword
-        });
+        const {body} = req
+        const newUser = await userService.create(body);
 
-        return res.json(user);
+        return res.json(body);
     }
     
     async authorization(req, res) {
@@ -30,8 +26,9 @@ class UserController {
                     return res.send({errors: ['Пользователь не найден']})
                 } else {
                     if (result) {
-                        return res.json({msg: ['Пользователь найден']}), console.log(userpasswd, result);
+                        //return res.json({msg: ['Пользователь найден']}), console.log(userpasswd, result);
                         //генерация токена
+                        const payload = {id: user.id}
                         //отправить токен браузеру
                     } else {
                         return res.send({errors: 'Пользователь yt найден'}), console.log(userpasswd, result);
@@ -41,6 +38,10 @@ class UserController {
         });
     }
 
+    async logout(req, res) {
+
+    }
+    
     async deleteAccount(req, res) {
 
     }
