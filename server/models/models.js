@@ -56,4 +56,4 @@ User.hasOne(Token, {foreignKey: 'userId'});
 Token.belongsTo(User, {foreignKey: 'userId'})
 
 
-module.exports = {User, Course};
+module.exports = {User, Course, Token};
