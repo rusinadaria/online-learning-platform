@@ -19,7 +19,7 @@ app.use('/api', router);
 async function main() {
     try {
         await sequelize.authenticate();
-        await sequelize.sync()
+        await sequelize.sync({ alter: true })
         app.listen(process.env.PORT, console.log('OK'));
     }
     catch (e) {

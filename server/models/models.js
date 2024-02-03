@@ -52,8 +52,8 @@ const Token = sequelize.define('token', {
 Course.hasMany(User);
 // User.belongsTo(Course)
 
-User.hasOne(Token, {foreignKey: 'userId'});
-Token.belongsTo(User, {foreignKey: 'userId'})
+User.hasOne(Token, {foreignKey: 'userid'});
+Token.belongsTo(User, {foreignKey: 'id'})
 
 
 module.exports = {User, Course, Token};

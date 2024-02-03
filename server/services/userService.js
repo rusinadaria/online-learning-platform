@@ -15,9 +15,12 @@ class UserService {
             password: hashPassword
         });
 
-        const payload = {id: User.id}
+        const payload = {id: user.id}
         const tokens = tokenService.generateTokens(payload)
-        await tokenService.saveToken(payload, (await tokens).refreshToken)
+        await tokenService.saveToken(payload.id, (await tokens).refreshToken)
+
+        return {tokens, user}
+
     }
 
     async checkPassword(email, password) {

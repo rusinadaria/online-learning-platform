@@ -22,11 +22,12 @@ class tokenService {
 
         if (tokenData) {
             tokenData.refreshToken = refreshToken;
+            // return tokenData.save();
         }
 
         const token = await Token.create({
-            user: userId,
-            refresh:  refreshToken,
+            userid: userId,
+            refresh: refreshToken,
         });
 
         return token;
