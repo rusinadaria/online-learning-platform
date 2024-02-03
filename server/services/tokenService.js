@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { where } = require('sequelize');
 const {Token} = require('../models/models');
 const jwt = require('jsonwebtoken');
 
@@ -22,7 +23,7 @@ class tokenService {
 
         if (tokenData) {
             tokenData.refreshToken = refreshToken;
-            // return tokenData.save();
+            return tokenData.save();
         }
 
         const token = await Token.create({
@@ -30,6 +31,11 @@ class tokenService {
             refresh: refreshToken,
         });
 
+        return token;
+    }
+
+    async removeToken(refreshToken) {
+        const token = await Token.destroy({where: {refresh: refreshToken}})
         return token;
     }
 }

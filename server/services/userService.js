@@ -19,25 +19,33 @@ class UserService {
         const tokens = tokenService.generateTokens(payload)
         await tokenService.saveToken(payload.id, (await tokens).refreshToken)
 
-        return {tokens, user}
+        return {...tokens, user}
 
     }
 
     async checkPassword(email, password) {
-        const finduser = await User.findOne({where: {email}})
-        const userpasswd = finduser.get('password')
-        if (!finduser) {
+        const user = await User.findOne({where: {email}})
+        if (!user) {
             return res.status(400).send({errors: 'Неверный email'})
         } else {
+            const userpasswd = user.get('password')
             const isValidPasswd = await bcrypt.compare(password, userpasswd)
             if (!isValidPasswd) {
-                return res.status(400).send({errors: ['Неверный пароль']});
+                return console.error('Неверный пароль');
             } else {
-                //генерация токенов?
-                //сохранение токенов?
+                const payload = {id: user.id}
+                const tokens = tokenService.generateTokens(payload)
+                await tokenService.saveToken(payload.id, (await tokens).refreshToken)
+
+                return {tokens, user};
             }
 
         };
+    }
+
+    async logout(refreshToken) {
+        const token = await tokenService.removeToken(refreshToken)
+        return token;
     }
 }
 

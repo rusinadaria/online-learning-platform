@@ -1,6 +1,4 @@
-const {Token} = require('../models/models');
 const { response } = require('express');
-const tokenService = require('../services/tokenService');
 const userService = require('../services/userService');
 
 class UserController {
@@ -11,19 +9,22 @@ class UserController {
         return res.json(newUser);
     }
     
-    async authorization(req, res) {
+    async auth(req, res) {
         const {email, password} = req.body
         const userData = await userService.checkPassword(email, password)
-        res.cookie('refreshToken', newUser.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+        res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
         return res.json(userData);
     }
 
     async logout(req, res) {
-
+        const {refreshToken} = req.cookies
+        const token = await userService.logout(refreshToken)
+        res.clearCookie('refreshToken')
+        return res.json(token)
     }
     
     async deleteAccount(req, res) {
-
+        
     }
     
 }
