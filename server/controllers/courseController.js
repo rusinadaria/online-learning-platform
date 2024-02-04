@@ -9,6 +9,10 @@ class courseController {
         }
         return res.send({msg: "Курс найден"})
     }
+
+    //добавить в мои курсы
+
+    //перенести в раздел пройдено
 }
 
 module.exports = new courseController()

@@ -3,16 +3,21 @@ const userService = require('../services/userService');
 
 class UserController {
     async registration(req, res) {
-        const {username, email, password} = req.body
-        const newUser = await userService.create(username, email, password);
-        res.cookie('refreshToken', newUser.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
-        return res.json(newUser);
+        try {
+            const {username, email, password} = req.body
+            const newUser = await userService.create(username, email, password);
+            res.cookie('refreshToken', (await newUser.tokens).refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+            return res.json(newUser);
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
     
     async auth(req, res) {
         const {email, password} = req.body
         const userData = await userService.checkPassword(email, password)
-        res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+        res.cookie('refreshToken', (await userData.tokens).refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
         return res.json(userData);
     }
 
@@ -22,9 +27,27 @@ class UserController {
         res.clearCookie('refreshToken')
         return res.json(token)
     }
+
+    async refreshToken(req, res) {
+        try {
+            const {refreshToken} = req.cookies
+            const userToken = await userService.refresh(refreshToken)
+            res.cookie('refreshToken', userToken.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+            return res.json(userToken);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    async profile() {
+        //создать страницу профиля
+        return res.json({msg: 'профиль'});
+    
+    }
     
     async deleteAccount(req, res) {
-        
+       
     }
     
 }

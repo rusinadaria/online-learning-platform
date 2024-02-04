@@ -50,7 +50,7 @@ const Token = sequelize.define('token', {
 })
 
 Course.hasMany(User);
-// User.belongsTo(Course)
+User.belongsTo(Course)
 
 User.hasOne(Token, {foreignKey: 'userid'});
 Token.belongsTo(User, {foreignKey: 'id'})

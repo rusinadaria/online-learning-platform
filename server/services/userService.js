@@ -8,18 +8,23 @@ class UserService {
     async create(username, email, password) {
         //проверить нет ли пользователя в базе 
         //сделать валидацию
-        const hashPassword = await bcrypt.hash(password, 3)
-        const user = await User.create({
-            username,
-            email,
-            password: hashPassword
-        });
+        try {
+            const hashPassword = await bcrypt.hash(password, 3)
+            const user = await User.create({
+                username,
+                email,
+                password: hashPassword
+            });
 
-        const payload = {id: user.id}
-        const tokens = tokenService.generateTokens(payload)
-        await tokenService.saveToken(payload.id, (await tokens).refreshToken)
+            const payload = {id: user.id}
+            const tokens = tokenService.generateTokens(payload)
+            await tokenService.saveToken(user.id, (await tokens).refreshToken)
 
-        return {...tokens, user}
+            return {tokens, user};
+        }
+        catch (e) {
+            console.log(e);
+        }
 
     }
 
@@ -35,7 +40,7 @@ class UserService {
             } else {
                 const payload = {id: user.id}
                 const tokens = tokenService.generateTokens(payload)
-                await tokenService.saveToken(payload.id, (await tokens).refreshToken)
+                await tokenService.saveToken(user.id, (await tokens).refreshToken)
 
                 return {tokens, user};
             }
@@ -47,6 +52,21 @@ class UserService {
         const token = await tokenService.removeToken(refreshToken)
         return token;
     }
+
+    async refresh(refreshToken) {
+        const findToken = await Token.findOne({where: {refreshToken}})
+        if (!findToken) {
+            return console.error('Токен не найден');
+        } else {
+            const payload = {id: User.id}
+            const user = User.id
+            const tokens = tokenService.generateTokens(payload)
+            await tokenService.saveToken(user, (await tokens).refreshToken)
+
+            return {tokens, user};
+        }
+    }
+
 }
 
 module.exports = new UserService();
