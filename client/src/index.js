@@ -4,31 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Store from './store/store';
-// import { createContext } from 'vm';
-
-interface State {
-  store: Store
-}
 
 const store = new Store();
 
-export const Context = createContext<State>({
+export const Context = createContext({
   store,
-
 })
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Context.Provider value = {{
-    store
-  }}>
-    <App />
+  <Context.Provider value={store}>
+     <App />
   </Context.Provider>
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
