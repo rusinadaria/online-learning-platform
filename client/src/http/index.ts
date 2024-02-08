@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { config } from 'process';
 
 
-const $api = axios.create({
+const $api =axios.create({
     withCredentials: true,
-    baseURL: 'https://localhost:3000/api/',
+    baseURL: `http://localhost:3000/api`
 })
 
 $api.interceptors.request.use((config) => {
