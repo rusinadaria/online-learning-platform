@@ -41,8 +41,7 @@ class UserController {
     }
 
     async profile() {
-        //создать страницу профиля
-        return res.json({msg: 'профиль'});
+        return res.json(user);
     
     }
     

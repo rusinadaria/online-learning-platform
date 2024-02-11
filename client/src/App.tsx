@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
-import LoginForm from './components/LoginForm';
-import RegForm from './components/RegForm';
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './components/AppRouter';
+
 
 function App() {
   return (
     <div className="App">
-      <LoginForm/>
-      <RegForm/>
+      <BrowserRouter>
+        <AppRouter/>
+      </BrowserRouter>
     </div>
   );
 }

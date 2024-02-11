@@ -7,7 +7,7 @@ const courseRouter = require('./courseRouter')
 
 router.use('/users', userRouter);
 router.use('/home', homeRouter);
-router.use('/course', courseRouter);
+router.use('/courses', courseRouter);
 
 
 module.exports = router

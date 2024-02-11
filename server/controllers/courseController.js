@@ -1,16 +1,18 @@
-const {Course} = require('../models/models');
+const courseService = require('../services/courseService');
 
 class courseController {
     async findCourse(req, res) {
         const coursename = req.body
-        const course = Course.findOne({where: {name: coursename}})
-        if (!course) {
-            return res.send({msg: ['Курс не найден']})
-        }
-        return res.send({msg: "Курс найден"})
+        const courseData = await courseService.find(coursename)
+        return res.json(courseData);
     }
 
-    //добавить в мои курсы
+    async getCourses(req, res) {
+        const courses = await courseService.get()
+        console.log(courses);
+    }
+
+    //добавить в мои курсы => добавить 
 
     //перенести в раздел пройдено
 }
