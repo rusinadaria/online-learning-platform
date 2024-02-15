@@ -1,8 +1,7 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { useEffect, useState, FC } from 'react';
-import CourseService from '../services/CourseService';
-import $api from '../http';
 import {Course} from '../models/Course';
+import $api from '../http';
 
 const Courses: FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -14,17 +13,22 @@ const Courses: FC = () => {
     }, [])
 
     async function fetchCourses() {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+        const response = await $api.get('/courses/fetchCourses')
         setCourses(response.data);
         console.log(response.data);
     }
+
+    async function AddToFavorites (id: number) {
+        return $api.post('/courses/addToFavorites', {id}) 
+    }
+
 
     return (
         <div>
             страница курсов
             <ul>
                 {courses.map((course) => (
-                    <li key={course.title}></li>
+                    <li key={course.id}>{course.name}</li>
                 ))}
             </ul>
         </div>

@@ -11,7 +11,18 @@ class CourseService {
 
     async get() {
         const course = await Course.findAll({raw:true})
-        console.log(courses);
+        return course;
+    }
+
+    async create(coursename) {
+        const course = await Course.findOne({where: {name: coursename}})
+        if (course) {
+            return res.send({msg: "Курс с таким названием уже существует"})
+        } else {
+            const data = await Course.create({name: coursename})
+            return data;
+        }
+
     }
 }
 
