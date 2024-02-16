@@ -19,8 +19,11 @@ class courseController {
         return res.json(courseData);
     }
 
-    async AddToFavorites(req, res) {
-    
+    async addToFavorites(req, res) {
+        const {userId} = req.body
+        const {courseId} = req.body
+        const data = await courseService.favorite(userId, courseId)
+        return res.json(data);
     }
 
     //добавить в мои курсы => добавить 

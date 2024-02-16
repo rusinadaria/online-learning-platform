@@ -49,11 +49,45 @@ const Token = sequelize.define('token', {
     }
 })
 
-Course.hasMany(User);
-User.belongsTo(Course)
+const UserCourse = sequelize.define('userCourse', {
+    userId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'user',
+            key: 'id'
+        },
+        allowNull: false
+    },
+    courseId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'course',
+            key: 'id'
+        },
+        allowNull: false
+    },
+    favorites: {
+        // type: DataTypes.ARRAY(DataTypes.INTEGER)
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    completed: {
+        // type: DataTypes.ARRAY(DataTypes.INTEGER)
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    }
+})
+
+// Course.hasMany(User);
+// User.belongsTo(Course)
 
 User.hasOne(Token, {foreignKey: 'userid'});
 Token.belongsTo(User, {foreignKey: 'id'})
 
+User.belongsToMany(Course, {through: UserCourse});
+Course.belongsToMany(User, {through: UserCourse});
 
-module.exports = {User, Course, Token};
+
+module.exports = {User, Course, Token, UserCourse};

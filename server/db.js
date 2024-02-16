@@ -10,5 +10,8 @@ const dbport = process.env.DBPORT;
 module.exports = new Sequelize(dbname, dbuser, dbroot, {
     dialect: 'postgres',
     host: dbhost,
-    port: dbport
+    port: dbport,
+    define: {
+        timestamps: false
+    }
 });

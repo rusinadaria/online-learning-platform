@@ -18,7 +18,7 @@ const Courses: FC = () => {
         console.log(response.data);
     }
 
-    async function AddToFavorites (id: number) {
+    async function addToFavorites (id: number) {
         return $api.post('/courses/addToFavorites', {id}) 
     }
 

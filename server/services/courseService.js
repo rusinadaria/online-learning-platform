@@ -1,4 +1,4 @@
-const {Course} = require('../models/models');
+const {Course, UserCourse} = require('../models/models');
 
 class CourseService {
     async find(coursename) {
@@ -6,7 +6,7 @@ class CourseService {
         if (!course) {
             return res.send({msg: ['Курс не найден']})
         }
-        return res.send({msg: "Курс найден"})
+        return course;
     }
 
     async get() {
@@ -23,6 +23,20 @@ class CourseService {
             return data;
         }
 
+    }
+
+    async favorite(userId, courseId) {
+        const userCourse = await UserCourse.findOne({where: userId, courseId})
+        if (!userCourse) {
+            const newCourse = await UserCourse.create({userId, courseId})
+            await UserCourse.update(
+                {favorites: true},
+                { where: { userId, courseId }
+            })
+            return newCourse;
+        }  else {
+            return res.json('Курс уже находится в избранном')
+        }
     }
 }
 
