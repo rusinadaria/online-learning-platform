@@ -26,8 +26,6 @@ class courseController {
         return res.json(data);
     }
 
-    //добавить в мои курсы => добавить 
-
     //перенести в раздел пройдено
 }
 

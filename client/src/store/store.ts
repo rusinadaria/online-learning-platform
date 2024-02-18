@@ -52,4 +52,5 @@ export default class Store {
             console.log(e.response?.data?.message);
         }
     }
+
 }

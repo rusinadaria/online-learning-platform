@@ -75,8 +75,7 @@ const UserCourse = sequelize.define('userCourse', {
     completed: {
         // type: DataTypes.ARRAY(DataTypes.INTEGER)
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
+        
     }
 })
 

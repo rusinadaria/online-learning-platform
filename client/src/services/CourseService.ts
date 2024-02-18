@@ -1,17 +1,21 @@
-// import axios from 'axios';
-// import React, { useState } from 'react';
-// import $api from '../http';
-
+import $api from '../http';
+import { AuthResponse } from "../models/response/AuthResponse";
+import { AxiosResponse } from "axios";
+ 
 export default class CourseService {
-    // static async fetchCourses() {
-    //     const courses = await $api.get('/courses/fetchCourses')
-    //     .then((response) => {
-    //         setData(response.data);
-    //     })
-    // }
+    static async getCourses() {
+        try {
+            const response = await $api.get('/courses/fetchCourses')
+            return response.data;
+        } catch (e) {
+            console.log(e);
+        }
+        
+        
+    }
 
-    // static async AddToFavorites (id: number) {
-    //     return $api.post('/courses/addToFavorites', {id}) 
-    // }
+    static async addToFavorites (id: number): Promise<AxiosResponse<AuthResponse>> {
+        return $api.post<AuthResponse>('/courses/addToFavorites', {id}) 
+    }
 
 }
