@@ -24,12 +24,14 @@ const CourseList: FC = () => {
         <div>
             <h1>список курсов</h1>
             <ul>
-                {courses.map((course) => (
-                    <div key={course.id}>{course.name}</div>
-                ))}
-                {/* <button onClick={() => courseStore.addToFavorites(course.id)}>
+                {courses?.map((course) => (
+                    <div key={course.id}>{course.name}
+                    <button onClick={() => courseStore.addToFavorites(course.id)}>
                     Добавить в избранное
-                </button> */}
+                    </button>
+                    </div>
+                    
+                ))}
             </ul>
         </div>
     )

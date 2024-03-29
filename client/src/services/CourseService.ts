@@ -14,8 +14,8 @@ export default class CourseService {
         
     }
 
-    static async addToFavorites (id: number): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>('/courses/addToFavorites', {id}) 
+    static async addToFav (userId: number, id: number): Promise<AxiosResponse<AuthResponse>> {
+        return $api.post<AuthResponse>('/courses/addToFavorites', {userId, id}) 
     }
 
 }

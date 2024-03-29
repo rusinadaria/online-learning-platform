@@ -22,9 +22,13 @@ export default class Store {
         try {
             const response = await AuthService.login(email, password);
             console.log(response);
-            localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
-            this.setUser(response.data.user);
+            if (response.data.user) {
+                this.setAuth(true);
+                this.setUser(response.data.user);
+                console.log("юзер авторизован");
+            } else {
+                console.log("юзер не найден");
+            }
         } catch (e) {
             console.log(e.response?.data?.message);
         }
