@@ -17,9 +17,10 @@ class UserService {
             });
 
             const payload = {id: user.id}
-            const tokens = tokenService.generateTokens(payload)
+            const tokens = await tokenService.generateTokens(payload)
             await tokenService.saveToken(user.id, (await tokens).refreshToken)
-
+            //console.log((await tokens).accessToken);
+            //return {accessToken: (await tokens).accessToken, refreshToken: (await tokens).refreshToken, user};
             return {tokens, user};
         }
         catch (e) {
@@ -39,7 +40,7 @@ class UserService {
                 return console.error('Неверный пароль');
             } else {
                 const payload = {id: user.id}
-                const tokens = tokenService.generateTokens(payload)
+                const tokens = await tokenService.generateTokens(payload)
                 await tokenService.saveToken(user.id, (await tokens).refreshToken)
 
                 return {tokens, user};

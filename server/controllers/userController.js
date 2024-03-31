@@ -7,6 +7,7 @@ class UserController {
             const {username, email, password} = req.body
             const newUser = await userService.create(username, email, password);
             res.cookie('refreshToken', (await newUser.tokens).refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+            console.log(newUser);
             return res.json(newUser);
         }
         catch (e) {

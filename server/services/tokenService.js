@@ -15,22 +15,22 @@ class tokenService {
             process.env.REFRESH_KEY,
             {expiresIn: '30d'});
         
-        return {accessToken, refreshToken}, console.log(accessToken, refreshToken);
+        return {accessToken, refreshToken};/*, console.log(accessToken, refreshToken)*/;
     }
         
     async saveToken(userId, refreshToken) {
         try {
-            const tokenData = await Token.findOne({userid: userId})
+            const tokenData = await Token.findOne({where: {userid: userId}})
 
-            if (tokenData) {
-                tokenData.refreshToken = refreshToken;
-                return tokenData.save();
-            } else {
+            if (!tokenData) {
                 const token = await Token.create({
                     userid: userId,
                     refresh: refreshToken
                 });
                 return token;
+            } else {
+                tokenData.refreshToken = refreshToken;
+                return tokenData.save();
             }
         } 
         catch (e) {

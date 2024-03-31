@@ -27,7 +27,9 @@ const RegForm: FC = () => {
                 type='password'
                 placeholder='Пароль'
             />
+            
             <button onClick={() => store.registration(username, email, password)}>Зарегестрироваться</button>
+            <button>Войти</button>
         </div>
     );
 };
