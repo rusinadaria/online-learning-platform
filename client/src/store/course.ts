@@ -16,12 +16,12 @@ class courseStore {
     }
 
 
-    async addToFavorites(id: number) {
+    async addToFavorites(courseId: number) {
         const token = localStorage.getItem('token');
         if (token !== null) {
             const userId = JSON.parse(token).id;
             try {
-                const response = await CourseService.addToFav(userId, id);
+                const response = await CourseService.addToFav(userId, courseId);
                 console.log(response);
             } catch (e) {
                 console.log(e.response?.data?.message);

@@ -7,7 +7,7 @@ import LoginPage from '../pages/Login';
 const AppRouter = () => {
     return (
         <Routes>
-          <Route path='/about' element={<About/>}/>
+          <Route path='/' element={<About/>}/>
           <Route path='/sign' element={<LoginPage/>}/>
           <Route path='/courses2' element={<Courses/>}/>
           <Route path='/profile' element={<Profile/>}/>

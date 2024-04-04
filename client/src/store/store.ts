@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import {IUser} from '../models/IUser'
 import AuthService from '../services/AuthService';
+import IsLogged from '../services/useAuth';
 
 export default class Store {
     user = {} as IUser;
@@ -18,11 +19,12 @@ export default class Store {
         this.user = user;
     }
 
-    async login(email: string, password: string) {
+    async registration(username: string, email: string, password: string) {
         try {
-            const response = await AuthService.login(email, password);
-            localStorage.setItem('token', response.data.accessToken);
+            const response = await AuthService.registration(username, email, password);
             console.log(response);
+            console.log(response.data.accessToken);
+            localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
         } catch (e) {
@@ -30,14 +32,15 @@ export default class Store {
         }
     }
 
-    async registration(username: string, email: string, password: string) {
+    async login(email: string, password: string) {
         try {
-            const response = await AuthService.registration(username, email, password);
-            console.log(response);
-            console.log(response.data);
+            const response = await AuthService.login(email, password);
             localStorage.setItem('token', response.data.accessToken);
+            console.log(response);
+            console.log(response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
+            //const redirect = IsLogged();
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -54,12 +57,12 @@ export default class Store {
         }
     }
 
-    async useAuth() {
-        try {
+    // async useAuth() {
+    //     try {
 
-        } catch (e) {
+    //     } catch (e) {
 
-        }
-    }
+    //     }
+    // }
 
 }
