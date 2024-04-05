@@ -1,6 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import CourseService from '../services/CourseService';
 import {Course} from '../models/Course';
+import { jwtDecode, JwtPayload } from "jwt-decode";
+import { CustomPayload } from "../models/Payload";
 
 
 class courseStore {
@@ -19,7 +21,11 @@ class courseStore {
     async addToFavorites(courseId: number) {
         const token = localStorage.getItem('token');
         if (token !== null) {
-            const userId = JSON.parse(token).id;
+            //const userId = JSON.parse(token).id;
+            //const decode: any = jwtDecode(token);
+            const decode = jwtDecode<CustomPayload>(token);
+            const userId = Number(decode.id);
+            console.log(userId);
             try {
                 const response = await CourseService.addToFav(userId, courseId);
                 console.log(response);

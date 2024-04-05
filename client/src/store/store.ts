@@ -23,8 +23,8 @@ export default class Store {
         try {
             const response = await AuthService.registration(username, email, password);
             console.log(response);
-            console.log(response.data.accessToken);
-            localStorage.setItem('token', response.data.accessToken);
+            console.log(response.data.tokens.accessToken);
+            localStorage.setItem('token', response.data.tokens.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
         } catch (e) {
@@ -35,9 +35,9 @@ export default class Store {
     async login(email: string, password: string) {
         try {
             const response = await AuthService.login(email, password);
-            localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem('token', response.data.tokens.accessToken);
             console.log(response);
-            console.log(response.data.accessToken);
+            console.log(response.data.tokens.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
             //const redirect = IsLogged();

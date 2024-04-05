@@ -1,10 +1,18 @@
 import React, {FC, useContext, useState} from 'react';
 import { Context } from '..';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm: FC = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const {store} = useContext(Context);
+
+    const navigate = useNavigate();
+
+    const handleLogin = async () => {
+        await store.login(email, password);
+        navigate("/profile");
+    }
 
     return (
         <div>
@@ -20,7 +28,7 @@ const LoginForm: FC = () => {
                 type='password'
                 placeholder='Пароль'
             />
-            <button onClick={() => store.login(email, password)}>Войти</button>
+            <button onClick={handleLogin}>Войти</button>
         </div>
     );
 };

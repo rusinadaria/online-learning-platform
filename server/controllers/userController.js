@@ -41,8 +41,15 @@ class UserController {
         }
     }
 
-    async profile() {
-        return res.json(user);
+    async profile(req, res) {
+        try {
+            const {userId} = req.body;
+            const data = await userService.account(userId, courseId);
+            return res.json(data);
+        }
+        catch (e) {
+            console.log(e);
+        }
     
     }
     

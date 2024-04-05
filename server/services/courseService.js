@@ -26,16 +26,18 @@ class CourseService {
     }
 
     async favorite(userId, courseId) {
-        const userCourse = await UserCourse.findOne({where: userId, courseId})
+        const userCourse = await UserCourse.findOne(
+            {where: {
+                userId: userId,
+                courseId: courseId
+            }
+        });
         if (!userCourse) {
             const newCourse = await UserCourse.create({userId, courseId})
-            await UserCourse.update(
-                {favorites: true},
-                { where: { userId, courseId }
-            })
+            await UserCourse.update({favorites: true}, {where: { userId, courseId }});
             return newCourse;
         }  else {
-            return res.json('Курс уже находится в избранном')
+            throw new Error('Курс уже находится в избранном')
         }
     }
 }

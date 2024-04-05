@@ -1,8 +1,9 @@
-const {User} = require('../models/models');
+const {User, UserCourse} = require('../models/models');
 const bcrypt = require('bcrypt');
 const {Token} = require('../models/models');
 const { response } = require('express');
 const tokenService = require('../services/tokenService');
+const { where } = require('sequelize');
 
 class UserService {
     async create(username, email, password) {
@@ -32,12 +33,12 @@ class UserService {
     async checkPassword(email, password) {
         const user = await User.findOne({where: {email}})
         if (!user) {
-            return res.status(400).send({errors: 'Неверный email'})
+            throw new Error ({errors: 'Неверный email'})
         } else {
             const userpasswd = user.get('password')
             const isValidPasswd = await bcrypt.compare(password, userpasswd)
             if (!isValidPasswd) {
-                return console.error('Неверный пароль');
+                throw new Error ('Неверный пароль');
             } else {
                 const payload = {id: user.id}
                 const tokens = await tokenService.generateTokens(payload)
@@ -66,6 +67,11 @@ class UserService {
 
             return {tokens, user};
         }
+    }
+
+    async account(id) {
+        const user = await UserCourse.findOne({where: {userId: id}});
+        return user;
     }
 
 }
