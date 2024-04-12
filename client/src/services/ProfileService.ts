@@ -2,7 +2,7 @@ import $api from '../http';
 import { AuthResponse } from "../models/response/AuthResponse";
 import { AxiosResponse } from "axios";
  
-export default class CourseService {
+export default class ProfileService {
     static async getCourses() {
         try {
             const response = await $api.get('/courses/fetchCourses')
@@ -11,10 +11,6 @@ export default class CourseService {
             console.log(e);
         }
         
-    }
-
-    static async addToFav (userId: number, courseId: number): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>('/courses/addToFavorites', {userId, courseId}) 
     }
 
 }
