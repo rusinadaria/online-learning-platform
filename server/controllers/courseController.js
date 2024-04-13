@@ -26,6 +26,12 @@ class courseController {
         return res.json(data);
     }
 
+    async userFavorites(req, res) {
+        const {userId} = req.body
+        const data = await courseService.userFavorites
+        return res.json(data);
+    }
+
     //перенести в раздел пройдено
 }
 

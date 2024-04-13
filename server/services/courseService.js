@@ -40,6 +40,15 @@ class CourseService {
             throw new Error('Курс уже находится в избранном')
         }
     }
+
+    async userFavorites(userId) {
+        const courses = await UserCourse.findOne({where: {userId: userId}});
+        if (!course) {
+            throw new Error('Избранные курсы не найдены')
+        }
+        return courses;
+    }
+
 }
 
 module.exports = new CourseService();
