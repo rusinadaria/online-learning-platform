@@ -1,22 +1,26 @@
-const {User, UserCourse} = require('../models/models');
+const { Op } = require('sequelize');
+const {User, Course} = require('../models/models');
 
 class userProfileService {
     async getUserProfile(userId) {
-        const user = await User.findOne({where: {id: userId}});
-        const favoriteCourses = await UserCourse.findAll(
-            {where: {
-                userId: userId,
-                favorites: true
-            }
+        userId = [1]
+        const favoriteCourses = await User.findAll({
+            attributes: ['username'],
+            where: {
+                id: {
+                    [Op.in]: userId
+                }
+             },
+             include: [{
+                model: Course,
+                attributes: ['id', 'name'],
+                through: {
+                    attributes: []
+                }
+             }]
         });
-        // const completedCourses = await UserCourse.findAll(
-        //     {where: {
-        //         userId: userId,
-        //         favorites: true
-        //     }
-        // });
 
-        return {user, favoriteCourses}
+        return favoriteCourses
 
     }
 }

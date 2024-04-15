@@ -1,4 +1,5 @@
 import React, {FC} from "react";
+import PageInfo from "../components/ProfileDetails";
 
 const Profile: FC = () => {
     
@@ -8,6 +9,7 @@ const Profile: FC = () => {
     return (
         <div>
             страница профиля
+            <PageInfo/>
         </div>
     );
 };
