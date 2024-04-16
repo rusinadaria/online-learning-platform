@@ -1,15 +1,13 @@
-const { Op } = require('sequelize');
+//const { Op } = require('sequelize');
 const {User, Course} = require('../models/models');
 
 class userProfileService {
     async getUserProfile(userId) {
-        userId = [1]
+        userId = [userId]
         const favoriteCourses = await User.findAll({
             attributes: ['username'],
             where: {
-                id: {
-                    [Op.in]: userId
-                }
+                id: userId
              },
              include: [{
                 model: Course,
