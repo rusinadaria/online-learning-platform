@@ -2,6 +2,19 @@
   text-align: center;
 }
 
+.custom-text {
+  /* font-family: Roboto,tahoma,arial,sans-serif;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 1.2; */
+  font-size: 42px;
+  color: #000;
+}
+
+.custom-container {
+  background-color: #fff; /* Замените #yourColor на желаемый цвет */
+}
+
 /* .course {
   display: flex;
   padding: 15px;
