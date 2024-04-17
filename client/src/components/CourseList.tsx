@@ -2,14 +2,22 @@ import React, { useEffect, useState, FC } from 'react';
 import {Course} from '../models/Course';
 import CourseService from '../services/CourseService';
 import {Row} from 'react-bootstrap'
+import {Col} from 'react-bootstrap'
 import courseStore from '../store/course';
 import CourseItem from './CourseItem';
 import course from '../store/course';
+import {Container} from 'react-bootstrap'
 // import FavButton from './UI/FavButton';
-//import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 const CourseList: FC = () => {
+
+    const navigate = useNavigate();
+
+    const handleClick = (courseId:number) => {
+        navigate(`/course/${courseId}`);
+    };
 
     const [courses, setCourses] = useState<Course[]>([]);
 
@@ -25,26 +33,13 @@ const CourseList: FC = () => {
     }
 
     return (
-        // <div>
-        //     <h1>список курсов</h1>
-        //     <ul>
-        //         {courses?.map((course) => (
-        //             <div key={course.id}>{course.name}
-        //             <button onClick={() => courseStore.addToFavorites(course.id)}>
-        //             Добавить в избранное
-        //             </button>
-        //             </div>
-                    
-        //         ))}
-        //     </ul>
-        // </div>
-        <Row className='d-flex'>
-           {courses?.map((course) => (
-                <div key={course.id}>
-                <CourseItem course={course} />
-                <button onClick={() => courseStore.addToFavorites(course.id)}>
-                    Добавить в избранное
-                </button>
+        <Row className='d-flex mt-2'>
+            {courses?.map((course) => (
+                <div key={course.id} onClick={() => handleClick(course.id)}>
+                    <CourseItem course={course} />
+                    {/* <button onClick={() => courseStore.addToFavorites(course.id)}>
+                        Добавить в избранное
+                    </button> */}
                 </div>
             ))}
         </Row>

@@ -1,4 +1,6 @@
 const courseService = require('../services/courseService');
+const uuid = require('uuid')
+const path = require('path')
 
 class courseController {
     async findCourse(req, res) {
@@ -13,9 +15,19 @@ class courseController {
         console.log(courses);
     }
 
+    async getOneCourse(req, res) {
+        const courseId = req.query.id
+        const course = await courseService.getOneCourse(courseId)
+        res.json(course);
+        console.log(course);
+    }
+
     async createCourse(req, res) {
         const {name} = req.body
-        const courseData = await courseService.create(name)
+        const {img} = req.files
+        const fileName = uuid.v4() + '.jpg'
+        img.mv(path.resolve(__dirname, '..', 'static', fileName))
+        const courseData = await courseService.create(name, fileName)
         return res.json(courseData);
     }
 

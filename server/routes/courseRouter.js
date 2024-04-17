@@ -6,6 +6,7 @@ const courseService = require('../services/courseService');
 router.get('/findCourse', courseController.findCourse)
 router.get('/fetchCourses', courseController.getCourses)
 router.post('/createCourse', courseController.createCourse)
+router.get('/fetchCourse', courseController.getOneCourse)
 router.post('/addToFavorites', courseController.addToFavorites)
 router.get('/userFavorites', courseService.userFavorites)
 

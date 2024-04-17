@@ -36,6 +36,18 @@ const Course = sequelize.define('course', {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false
+    },
+    img: {
+        type: DataTypes.STRING,
+    },
+    description: {
+        type: DataTypes.STRING,
+    },
+    server_address: {
+        type: DataTypes.STRING,
+    },
+    file_path: {
+        type: DataTypes.STRING,
     }
 });
 

@@ -17,4 +17,14 @@ export default class CourseService {
         return $api.post<AuthResponse>('/courses/addToFavorites', {userId, courseId}) 
     }
 
+    static async getOneCourse(id: number) {
+        try {
+            const response = await $api.get('/courses/fetchCourse', {params: {id: id}})
+            return response.data;
+        } catch (e) {
+            console.log(e);
+        }
+        
+    }
+
 }

@@ -14,12 +14,17 @@ class CourseService {
         return course;
     }
 
-    async create(coursename) {
+    async getOneCourse(id) {
+        const course = await Course.findOne({where: {id}})
+        return course;
+    }
+
+    async create(coursename, fileName) {
         const course = await Course.findOne({where: {name: coursename}})
         if (course) {
             return res.send({msg: "Курс с таким названием уже существует"})
         } else {
-            const data = await Course.create({name: coursename})
+            const data = await Course.create({name: coursename, img: fileName})
             return data;
         }
 
