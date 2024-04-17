@@ -10,9 +10,9 @@ const CoursePage: FC = () => {
     const {id} = useParams();
 
     useEffect(() => {
-        if (id) { // Проверяем, что id не undefined
+        if (id) {
             displayCourse(parseInt(id, 10));
-            console.log(id) // Преобразуем id в число
+            console.log(id)
         }
         console.log('работает');
     }, [id]) 
@@ -27,8 +27,8 @@ const CoursePage: FC = () => {
         <div>
             <Navigation/>
             <Container>
-                <Col md={4}>
-                    <h1></h1>
+                <Col md={4} className='mt-4'>
+                    <h1 style={{whiteSpace: 'nowrap'}}>название</h1>
                 </Col>
             </Container>
         </div>

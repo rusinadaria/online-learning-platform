@@ -8,7 +8,7 @@ const Navigation = () => {
                 <Navbar.Brand href="#">
                     <img
                     alt=""
-                    src="../../img/256.svg"
+                    src="/img/256.svg"
                     width="30"
                     height="30"
                     className="d-inline-block align-top"
