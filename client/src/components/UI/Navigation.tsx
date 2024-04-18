@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import img from '../../img/256.svg';
 
 const Navigation = () => {
   return (
@@ -8,7 +9,7 @@ const Navigation = () => {
                 <Navbar.Brand href="#">
                     <img
                     alt=""
-                    src="/img/256.svg"
+                    src={img}
                     width="30"
                     height="30"
                     className="d-inline-block align-top"
