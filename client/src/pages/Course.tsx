@@ -64,10 +64,22 @@ const CoursePage: FC = () => {
                             <br/>
                             <ReactMarkdown 
                             components={{
-                                h2: ({node, ...props}) => (
-                                    <Link to={`/section/${node.children[0].value}`} {...props} />
-                                )
-                            }}>{fileContent}</ReactMarkdown>
+                                h2: ({node, ...props}) => {
+                                  // Проверяем, что node и node.children[0] определены и является текстовым узлом
+                                  if (node && node.children && node.children[0] && node.children[0].type === 'text') {
+                                    // Получаем текст из текстового узла
+                                    const sectionTitle = node.children[0].value;
+                                    if (sectionTitle) {
+                                      // Удаляем несовместимые свойства перед передачей в Link
+                                      const { ref, onChange, onCopy, onCopyCapture, ...linkProps } = props;
+                                      return <Link to={`/section/${sectionTitle}`} {...linkProps} />;
+                                    }
+                                  }
+                                  // Возвращаем исходный компонент, если условия не выполнены
+                                  return <h2 {...props} />;
+                                }
+                             }}
+                            >{fileContent}</ReactMarkdown>
                         </div>
                         )}
                 </Col>
