@@ -6,9 +6,11 @@ import { Context } from '..';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { CustomPayload } from "../models/Payload";
-
-// список избранных курсов + прогресс для каждого
-// список пройденных курсов 
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import img from '../img/256.svg';
+import CourseProfileCard from './CourseProfileCard';
 
 const PageInfo: FC = () => {
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
@@ -34,6 +36,7 @@ const PageInfo: FC = () => {
             console.log(userId);
             try {
                 const userProfile = await UserProfileService.getProfile(userId);
+                //const courses = userProfile.courses[0];
                 console.log(userProfile);
                 setUserProfile(userProfile);
             } catch (e) {
@@ -44,18 +47,47 @@ const PageInfo: FC = () => {
         }
     }
 
+    const handleClick = (courseId:number) => {
+        navigate(`/course/${courseId}`);
+    };
+
     return (
         <div>
-            <h1>избранные</h1>
-            
-            <h1>{userProfile && userProfile/*[0]*/?.username}</h1>
-            <h2>hjdgcjadhfc</h2>
-            <ul>
-            {userProfile && userProfile/*[0]*/?.courses?.map((course: Course) => (
-                <li key={course.id}>{course.name}</li>
-            ))}
-            </ul>
-            <button onClick={handleLogin}>Выход</button>
+            <Navbar className="bg-body-tertiary">
+                <Container className="navbar-container">
+                    <Navbar.Brand href="#">
+                        <img
+                        alt=""
+                        src={img}
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                        />{' '}
+                        CourseBase
+                    </Navbar.Brand>
+                    {userProfile && (
+                    <>
+                        <span>{userProfile/*[0]*/?.username}</span>
+                        <button onClick={handleLogin}>Выход</button>
+                    </>
+                    )}
+                </Container>
+            </Navbar>
+            <h1>Мои курсы</h1>
+            <br/>
+            <Tabs>
+                <TabList>
+                    <Tab>Избранное</Tab>
+                    <Tab>Пройденное</Tab>
+                </TabList>
+                <TabPanel>
+                    {userProfile && userProfile/*[0]*/?.courses.map((course: Course) => (
+                    <div key={course.id} onClick={() => handleClick(course.id)}>
+                        <CourseProfileCard course={course} />
+                    </div>
+                    ))}
+                </TabPanel>
+            </Tabs>
         </div>
     )
 }

@@ -52,7 +52,7 @@ const RegForm: FC = () => {
                     style={{ backgroundColor: '#28a745', color: 'white', borderColor: '#28a745'}}>Зарегестрироваться</Button>
                     <div className="d-flex align-self-end mt-3">
                         <span className="text-muted mx-2 ">Уже есть аккаунт?</span>
-                        <Nav.Link as={Link} to="/sign" className="text-decoration-underline text-primary">Войти</Nav.Link>
+                        <Nav.Link as={Link} to="/login" className="text-decoration-underline text-primary">Войти</Nav.Link>
                         {/* <Button className='align-self-end' onClick={() => navigate("/sign")}>Войти</Button> */}
                     </div>
                 </Form>

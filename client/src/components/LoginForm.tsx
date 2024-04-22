@@ -49,7 +49,7 @@ const LoginForm: FC = () => {
                     style={{ backgroundColor: '#28a745', color: 'white', borderColor: '#28a745'}}>Войти</Button>
                     <div className="d-flex align-self-end mt-3">
                         <span className="text-muted mx-2 ">Нет учетной записи?</span>
-                        <Nav.Link as={Link} to="/sign" className="text-decoration-underline text-primary">Зарегестрируйтесь</Nav.Link>
+                        <Nav.Link as={Link} to="/registration" className="text-decoration-underline text-primary">Зарегестрируйтесь</Nav.Link>
                         {/* <Button className='align-self-end' onClick={() => navigate("/sign")}>Войти</Button> */}
                     </div>
                 </Form>

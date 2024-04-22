@@ -15,6 +15,49 @@
   background-color: #fff; /* Замените #yourColor на желаемый цвет */
 }
 
+.navbar-container {
+  display: flex;
+  justify-content: space-between; /* Выравнивание элементов по краям контейнера */
+  align-items: center; /* Выравнивание элементов по центру по вертикали */
+}
+
+.bordered-link {
+  border: 2px solid #000; /* Задайте цвет рамки */
+  padding: 5px 10px; /* Добавьте внутренний отступ для удобства чтения */
+  margin-left: 10px; /* Добавьте отступ слева для разделения ссылок */
+  border-radius: 5px; /* Скругление углов рамки */
+ }
+ 
+ .nav-links {
+  display: flex;
+  justify-content: space-between; /* Распределение пространства между элементами */
+  align-items: center; /* Выравнивание элементов по центру по вертикали */
+ }
+ 
+
+/* .react-tabs__tab-list {
+  display: flex;
+  flex-direction: column;
+  width: 12rem; 
+  margin-top: 1rem;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  padding: 0.5rem 1rem;
+  margin-top: 0;
+  margin-right: 0;
+  border: none;
+  align-items: flex-start;
+ }
+ 
+ .react-tabs__tab-panel {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12rem; 
+  position: relative;
+  justify-content: center;
+  align-items: flex-start;
+ } */
 /* .course {
   display: flex;
   padding: 15px;

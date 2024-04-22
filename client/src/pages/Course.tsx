@@ -72,7 +72,7 @@ const CoursePage: FC = () => {
                                     if (sectionTitle) {
                                       // Удаляем несовместимые свойства перед передачей в Link
                                       const { ref, onChange, onCopy, onCopyCapture, ...linkProps } = props;
-                                      return <Link to={`/section/${sectionTitle}`} {...linkProps} />;
+                                      //return <Link to={`/section/${sectionTitle}`} {...linkProps} />;
                                     }
                                   }
                                   // Возвращаем исходный компонент, если условия не выполнены

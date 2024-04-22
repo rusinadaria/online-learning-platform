@@ -11,7 +11,7 @@ class userProfileService {
              },
              include: [{
                 model: Course,
-                attributes: ['id', 'name'],
+                attributes: ['id', 'name', 'img'],
                 through: {
                     attributes: []
                 }
@@ -19,7 +19,6 @@ class userProfileService {
         });
 
         return favoriteCourses
-
     }
 }
 module.exports = new userProfileService();
