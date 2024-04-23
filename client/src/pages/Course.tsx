@@ -6,6 +6,12 @@ import CourseService from '../services/CourseService';
 import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
+//import MarkdownIt from 'markdown-it';
+//declare module 'markdown-it';
+import Card from 'react-bootstrap/Card';
+import { title } from 'process';
+//import { HashLink } from 'react-router-hash-link';
+
 
 
 const CoursePage: FC = () => {
@@ -31,6 +37,7 @@ const CoursePage: FC = () => {
     const fetchFile = async () => {
         try {
           const response = await fetch('http://localhost:3000/static/1.md');
+          // const response = await fetch('http://localhost:3000/static/' + course?.file_path);
           if (!response.ok) {
             throw new Error('Ошибка при загрузке файла');
           }
@@ -45,47 +52,70 @@ const CoursePage: FC = () => {
         }
       };
 
-    return (
-        <div>
-            <Navigation/>
-            <Container>
-                <Col md={4} className='mt-4'>
-                    {/* {course && <h1 style={{whiteSpace: 'nowrap'}}>{course.name}</h1>} */}
-                        {course && (
-                        <div style={{
-                            // backgroundImage: {`http://localhost:3000/static/` + course.img},
-                            backgroundImage:  `http://localhost:3000/static/${course.img}`,
-                            backgroundSize: 'cover',
-                            backgroundRepeat: 'no-repeat',
-                            height: '200px',
-                            //whiteSpace: 'nowrap'
-                        }}>
-                            <h1 style={{whiteSpace: 'nowrap'}}>{course.name}</h1>
-                            <br/>
-                            <ReactMarkdown 
-                            components={{
-                                h2: ({node, ...props}) => {
-                                  // Проверяем, что node и node.children[0] определены и является текстовым узлом
-                                  if (node && node.children && node.children[0] && node.children[0].type === 'text') {
-                                    // Получаем текст из текстового узла
-                                    const sectionTitle = node.children[0].value;
-                                    if (sectionTitle) {
-                                      // Удаляем несовместимые свойства перед передачей в Link
-                                      const { ref, onChange, onCopy, onCopyCapture, ...linkProps } = props;
-                                      //return <Link to={`/section/${sectionTitle}`} {...linkProps} />;
-                                    }
-                                  }
-                                  // Возвращаем исходный компонент, если условия не выполнены
-                                  return <h2 {...props} />;
-                                }
-                             }}
-                            >{fileContent}</ReactMarkdown>
-                        </div>
-                        )}
-                </Col>
-            </Container>
-        </div>
-    );
+      function generateUniqueId(title: string) {
+        return title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      }
+
+
+  
+  return (
+    <div>
+      <Navigation/>
+      <Container>
+          {course && (
+            <div style={{
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              height: '200px'
+            }}>
+              <h1 style={{
+                whiteSpace: 'nowrap',
+                backgroundImage: `url("http://localhost:3000/static/` + course.img + `")`,
+                backgroundSize: '100% auto',
+                backgroundRepeat: 'no-repeat',
+                height: '150px',
+                width: '100%',
+              }}>{course.name}</h1>
+              <br/>
+              <ReactMarkdown 
+                components={{
+                  p: ({node, ...props}) => <p {...props} style={{textAlign: 'left', fontFamily: 'TT Norms Pro, , sans-serif', fontSize: '20px', lineHeight: '26px'}} />,
+                  h3: ({node, ...props}) => <h3 {...props} style={{textAlign: 'left'}} />,
+                  h5: ({node, ...props}) => {
+                    if (node && node.children && node.children[0] && node.children[0].type === 'text') {
+                      const sectionTitle = node.children[0].value;
+                      if (sectionTitle) {
+                        const { ref, onChange, onCopy, onCopyCapture, ...linkProps } = props;
+
+                        const sectionId = generateUniqueId(sectionTitle);
+
+                        
+                        // Возвращаем карточку для каждого заголовка h2
+                        return (
+                          <div style={{ marginBottom: '20px' }}>
+                            <a href={`#${sectionId}`} style={{ textDecoration: 'none' }}></a>
+                            <Card style={{ width: '100%', cursor: 'pointer', height: 'auto'}} border={'light'}>
+                              <Card.Body>
+                                <Card.Title style={{ whiteSpace: 'nowrap', textAlign: 'left'}}>{sectionTitle}</Card.Title>
+                              </Card.Body>
+                            </Card>
+                          </div>
+                        );
+                      }
+                    }
+                    // Возвращаем исходный компонент, если условия не выполнены
+                    return <h5 {...props} />;
+                 }
+                }}
+              >{fileContent}</ReactMarkdown>
+            </div>
+          )}
+     
+      </Container>
+    </div>
+ );
 };
+{/* <Link to={`/section/${sectionTitle}`} {...linkProps} />; */}
+
 
 export default CoursePage;
