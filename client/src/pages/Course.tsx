@@ -26,7 +26,7 @@ const CoursePage: FC = () => {
             fetchFile();
         }
         console.log('работает');
-    }, [id]) 
+    }, [course]) 
 
     async function displayCourse(courseId:number) {
         const course = await CourseService.getOneCourse(courseId)
@@ -36,8 +36,7 @@ const CoursePage: FC = () => {
 
     const fetchFile = async () => {
         try {
-          const response = await fetch('http://localhost:3000/static/1.md');
-          // const response = await fetch('http://localhost:3000/static/' + course?.file_path);
+          const response = await fetch(`http://localhost:3000/static/${course?.file_path}`);
           if (!response.ok) {
             throw new Error('Ошибка при загрузке файла');
           }
