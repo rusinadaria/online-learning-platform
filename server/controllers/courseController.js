@@ -38,6 +38,13 @@ class courseController {
         return res.json(data);
     }
 
+    async addToCompleted(req, res) {
+        const {userId} = req.body
+        const {courseId} = req.body
+        const data = await courseService.completed(userId, courseId)
+        return res.json(data);
+    }
+
     async userFavorites(req, res) {
         const {userId} = req.body
         const data = await courseService.userFavorites

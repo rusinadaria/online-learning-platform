@@ -65,29 +65,36 @@ const PageInfo: FC = () => {
                         />{' '}
                         CourseBase
                     </Navbar.Brand>
+                    <Nav className="me-auto" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <Nav.Link href="/courses" style={{ flexGrow: 1 }}>Каталог курсов</Nav.Link>
+                        <div style={{ display: 'flex', gap: '10px' }}></div>
+                        
+                    </Nav>
                     {userProfile && (
                     <>
-                        <span>{userProfile/*[0]*/?.username}</span>
-                        <button onClick={handleLogin}>Выход</button>
+                        <span>{userProfile[0]?.username}</span>
+                        <button onClick={handleLogin} style={{ border: '1px solid #000', padding: '5px 10px', marginLeft: '10px', borderRadius: '5px' }}>Выход</button>
                     </>
                     )}
                 </Container>
             </Navbar>
-            <h1>Мои курсы</h1>
-            <br/>
-            <Tabs>
-                <TabList>
-                    <Tab>Избранное</Tab>
-                    <Tab>Пройденное</Tab>
-                </TabList>
-                <TabPanel>
-                    {userProfile && userProfile/*[0]*/?.courses.map((course: Course) => (
-                    <div key={course.id} onClick={() => handleClick(course.id)}>
-                        <CourseProfileCard course={course} />
-                    </div>
-                    ))}
-                </TabPanel>
-            </Tabs>
+            <Container>
+                <h1>Мои курсы</h1>
+                <br/>
+                <Tabs>
+                    <TabList>
+                        <Tab>Избранное</Tab>
+                        <Tab>Пройденное</Tab>
+                    </TabList>
+                    <TabPanel>
+                        {userProfile && userProfile[0]?.courses.map((course: Course) => (
+                        <div key={course.id} onClick={() => handleClick(course.id)}>
+                            <CourseProfileCard course={course} />
+                        </div>
+                        ))}
+                    </TabPanel>
+                </Tabs>
+            </Container>
         </div>
     )
 }

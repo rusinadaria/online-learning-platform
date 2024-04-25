@@ -7,7 +7,7 @@ import courseStore from '../store/course';
 import CourseItem from './CourseItem';
 import course from '../store/course';
 import {Container} from 'react-bootstrap'
-// import FavButton from './UI/FavButton';
+import FavButton from './UI/FavButton';
 import {useNavigate} from 'react-router-dom';
 
 
@@ -35,12 +35,10 @@ const CourseList: FC = () => {
     return (
         <Row className='d-flex mt-2'>
             {courses?.map((course) => (
-                <div key={course.id} onClick={() => handleClick(course.id)}>
+                <Col className='col-4 mt-3' key={course.id} onClick={() => handleClick(course.id)}>
                     <CourseItem course={course} />
-                    {/* <button onClick={() => courseStore.addToFavorites(course.id)}>
-                        Добавить в избранное
-                    </button> */}
-                </div>
+                    {/* <FavButton onClick={() => courseStore.addToFavorites(course.id)}></FavButton> */}
+                </Col>
             ))}
         </Row>
     )

@@ -46,6 +46,28 @@ class CourseService {
         }
     }
 
+    async completed(userId, courseId) {
+        const userCourse = await UserCourse.findOne(
+            {where: {
+                userId: userId,
+                courseId: courseId
+            }
+        });
+        if (userCourse) {
+            // const newCourse = await UserCourse.create({
+            //     userId,
+            //     courseId,
+            //     favorites: true,
+            //     completed: true
+            // });
+            const updated = await UserCourse.update({completed: true}, {where: { userId, courseId }});
+            return updated;
+        }  else {
+            throw new Error('Курс уже находится в выполненном')
+        }
+    }
+
+
     async userFavorites(userId) {
         const courses = await UserCourse.findOne({where: {userId: userId}});
         if (!course) {

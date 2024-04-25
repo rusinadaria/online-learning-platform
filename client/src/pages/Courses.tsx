@@ -11,11 +11,8 @@ const Courses: FC = () => {
         <div>
             <Navigation />
             <Container>
-                <Row className='mt-2'>
-                    <Col md={9}>
-                        <CourseList/>
-                    </Col>
-                </Row>
+                <CourseList/>
+               
             </Container>
         </div>
     );

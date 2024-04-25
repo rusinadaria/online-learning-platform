@@ -8,6 +8,7 @@ router.get('/fetchCourses', courseController.getCourses)
 router.post('/createCourse', courseController.createCourse)
 router.get('/fetchCourse', courseController.getOneCourse)
 router.post('/addToFavorites', courseController.addToFavorites)
+router.post('/addToCompleted', courseController.addToCompleted)
 router.get('/userFavorites', courseService.userFavorites)
 
 

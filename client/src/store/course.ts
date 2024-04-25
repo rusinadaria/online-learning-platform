@@ -37,6 +37,26 @@ class courseStore {
         }
 
     }
+
+    async addToCompleted(courseId: number) {
+        const token = localStorage.getItem('token');
+        if (token !== null) {
+            //const userId = JSON.parse(token).id;
+            //const decode: any = jwtDecode(token);
+            const decode = jwtDecode<CustomPayload>(token);
+            const userId = Number(decode.id);
+            console.log(userId);
+            try {
+                const response = await CourseService.addToCompleted(userId, courseId);
+                console.log(response);
+            } catch (e) {
+                console.log(e.response?.data?.message);
+            }
+        } else {
+            console.log("token undefined");
+        }
+
+    }
 }
 
 export default new courseStore();

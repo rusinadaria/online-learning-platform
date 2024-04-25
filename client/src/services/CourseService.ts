@@ -17,6 +17,10 @@ export default class CourseService {
         return $api.post<AuthResponse>('/courses/addToFavorites', {userId, courseId}) 
     }
 
+    static async addToCompleted (userId: number, courseId: number): Promise<AxiosResponse<AuthResponse>> {
+        return $api.post<AuthResponse>('/courses/addToCompleted', {userId, courseId}) 
+    }
+
     static async getOneCourse(id: number) {
         try {
             const response = await $api.get('/courses/fetchCourse', {params: {id: id}})

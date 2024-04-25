@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import { title } from 'process';
 //import { HashLink } from 'react-router-hash-link';
+import courseStore from '../store/course';
 
 
 
@@ -22,16 +23,16 @@ const CoursePage: FC = () => {
     useEffect(() => {
         if (id) {
             displayCourse(parseInt(id, 10));
-            console.log(id)
+            //console.log(id)
             fetchFile();
         }
-        console.log('работает');
+        //console.log('работает');
     }, [course]) 
 
     async function displayCourse(courseId:number) {
         const course = await CourseService.getOneCourse(courseId)
         setCourse(course);
-        console.log(course);
+        //console.log(course);
     }
 
     const fetchFile = async () => {
@@ -107,6 +108,8 @@ const CoursePage: FC = () => {
                  }
                 }}
               >{fileContent}</ReactMarkdown>
+              
+              
             </div>
           )}
      
