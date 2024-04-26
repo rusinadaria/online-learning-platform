@@ -35,9 +35,8 @@ const CourseList: FC = () => {
     return (
         <Row className='d-flex mt-2'>
             {courses?.map((course) => (
-                <Col className='col-4 mt-3' key={course.id} onClick={() => handleClick(course.id)}>
+                <Col className='col-3 mt-3' key={course.id} onClick={() => handleClick(course.id)}>
                     <CourseItem course={course} />
-                    {/* <FavButton onClick={() => courseStore.addToFavorites(course.id)}></FavButton> */}
                 </Col>
             ))}
         </Row>

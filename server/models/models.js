@@ -100,8 +100,8 @@ Token.belongsTo(User, {foreignKey: 'id'});
 User.hasMany(Course, { foreignKey: 'id' });
 Course.belongsTo(User, { foreignKey: 'id' });
 
-User.belongsToMany(Course, {through: UserCourse});
-Course.belongsToMany(User, {through: UserCourse});
+User.belongsToMany(Course, {through: UserCourse, foreignKey: 'userId' });
+Course.belongsToMany(User, {through: UserCourse, foreignKey: 'courseId' });
 
 
 module.exports = {User, Course, Token, UserCourse};
