@@ -57,12 +57,4 @@ export default class Store {
         }
     }
 
-    // async useAuth() {
-    //     try {
-
-    //     } catch (e) {
-
-    //     }
-    // }
-
 }

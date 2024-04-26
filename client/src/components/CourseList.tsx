@@ -23,7 +23,6 @@ const CourseList: FC = () => {
 
     useEffect(() => {
         fetchCourses()
-        console.log('работает');
     }, []) 
 
     async function fetchCourses() {

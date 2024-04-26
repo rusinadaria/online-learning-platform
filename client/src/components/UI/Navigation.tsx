@@ -31,7 +31,6 @@ const Navigation = () => {
         }
     };
        
-
     return (
         <Navbar className="bg-body-tertiary">
             <Container>
