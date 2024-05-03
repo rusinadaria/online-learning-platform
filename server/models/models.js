@@ -91,14 +91,14 @@ const UserCourse = sequelize.define('userCourse', {
     }
 })
 
-// Course.hasMany(User);
-// User.belongsTo(Course)
+Course.hasMany(User);
+User.belongsTo(Course)
 
 User.hasOne(Token, {foreignKey: 'userid'});
 Token.belongsTo(User, {foreignKey: 'id'});
 
-User.hasMany(Course, { foreignKey: 'id' });
-Course.belongsTo(User, { foreignKey: 'id' });
+// User.hasMany(Course, { foreignKey: 'id' });
+// Course.belongsTo(User, { foreignKey: 'id' });
 
 User.belongsToMany(Course, {through: UserCourse, foreignKey: 'userId' });
 Course.belongsToMany(User, {through: UserCourse, foreignKey: 'courseId' });

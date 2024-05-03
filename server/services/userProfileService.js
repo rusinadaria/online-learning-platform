@@ -22,13 +22,12 @@ class userProfileService {
     // }
 
     async getUserProfile(userId) {
-        // Получаем пользователя
+        //userId = [userId]
         const user = await User.findOne({
             where: { id: userId },
             attributes: ['username']
         });
 
-        // Получаем избранные курсы
         const favoriteCourses = await UserCourse.findAll({
             where: {
                 userId: userId,
@@ -40,7 +39,6 @@ class userProfileService {
             }]
         });
 
-        // Получаем завершенные курсы
         const completedCourses = await UserCourse.findAll({
             where: {
                 userId: userId,
@@ -52,7 +50,6 @@ class userProfileService {
             }]
         });
 
-        // Возвращаем объект с информацией о пользователе и его курсах
         return {
             user: user,
             favoriteCourses: favoriteCourses.map(uc => uc.Course),

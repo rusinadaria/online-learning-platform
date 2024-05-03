@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext} from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import img from '../../img/256.svg';
+import account from '../../img/Frame 3.png';
 import "../../App.css";
 import { Context } from '../../index';
 import { NavLink } from 'react-router-dom';
@@ -49,7 +50,7 @@ const Navigation = () => {
                     <div style={{ display: 'flex', gap: '10px' }}></div>
                     {isAuthenticated ? (
                         <>
-                         <Nav.Link href="/profile">Аккаунт</Nav.Link>
+                         <Nav.Link href="/profile"> <img src={account} alt="Аккаунт" style={{ width: '30px', height: '30px', marginRight: '5px' }} /></Nav.Link>
                          <button onClick={handleLogout} style={{ border: '1px solid #000', padding: '5px 10px', marginLeft: '10px', borderRadius: '5px' }}>Выйти</button>
                         </>
                         
