@@ -72,7 +72,7 @@ const PageInfo: FC = () => {
                     </Nav>
                     {userProfile && (
                     <>
-                        <span>{userProfile[0]?.username}</span>
+                        <span>{userProfile/*[0]*/?.username}</span>
                         <button onClick={handleLogin} style={{ border: '1px solid #000', padding: '5px 10px', marginLeft: '10px', borderRadius: '5px' }}>Выход</button>
                     </>
                     )}
@@ -87,7 +87,7 @@ const PageInfo: FC = () => {
                         <Tab>Пройденное</Tab>
                     </TabList>
                     <TabPanel>
-                        {userProfile && userProfile[0]?.courses.map((course: Course) => (
+                        {userProfile && userProfile/*[0]*/?.courses.map((course: Course) => (
                         <div key={course.id} onClick={() => handleClick(course.id)}>
                             <CourseProfileCard course={course} />
                         </div>

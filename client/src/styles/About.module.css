@@ -1,0 +1,65 @@
+/* .customList {
+    list-style-position: inside;
+    padding-left: 50px;
+    text-align: left;
+}
+
+.customList li {
+    font-size: 20px;
+    color: green;
+    position: relative;
+    padding-left: 20px;
+}
+
+.customList li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 2px;
+    height: 20px;
+    background-color: green;
+    margin-left: -10px;
+} */
+
+/* About.css */
+ul {
+    list-style-position: inside;
+    padding-left: 50px;
+    text-align: left;
+}
+
+li {
+    font-size: 20px;
+    color: black;
+    position: relative;
+    padding-left: 20px;
+}
+
+li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 2px;
+    height: 20px;
+    background-color: green; /* Зеленые линии */
+    margin-left: -10px;
+}
+
+/* Удалите линию для последнего элемента */
+li:last-child::before {
+    display: none;
+}
+
+/* Зеленые точки */
+li::after {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: green;
+    margin-left: -20px;
+}
+
